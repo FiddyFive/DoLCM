@@ -11,7 +11,7 @@ var modal
 
 const modalTemplate = `
   <div class="modal-content">
-    <h1>Back up your save before using this!</h1>
+    <h1>Backup your save before using this!</h1>
     <p>Don't come crying to me if this corrupts your save (but please do report it if you find a bug)</p>
   </div>`
 
@@ -37,7 +37,6 @@ const styleTemplate = `
     width: 80%;
     max-width: 960px;
     position:relative;
-    animation:animetop 0.4s
 }`
 
 const openMenu = () => {
@@ -51,10 +50,9 @@ const closeMenu = () => {
 (function() {
     'use strict';
 
-    const head = document.head
     const style = document.createElement('style')
     style.textContent = styleTemplate
-    head.appendChild(style)
+    document.head.appendChild(style)
 
     // Construct and inject cheat menu
     const passages = document.getElementById('passages')
@@ -85,12 +83,31 @@ const closeMenu = () => {
         // Currently just a big long list. Will add tabs later if needed.
         var el
 
+        el = document.createElement('h2')
+        el.innerHTML = "Money and Needs"
+        content.appendChild(el)
+        
+        // Money
         el = document.createElement('span')
         el.innerHTML = `
         Money (in cents):&nbsp;
         <input type="number" id="moneyVal" value="${SugarCube.State.active.variables.money}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.money = parseInt(document.getElementById('moneyVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('moneyVal').value = SugarCube.State.active.variables.money.toString()">
+        `
+        content.appendChild(el)
+
+        el = document.createElement('h2')
+        el.innerHTML = "Core Characteristics"
+        content.appendChild(el)
+
+        // Purity
+        el = document.createElement('span')
+        el.innerHTML = `
+        Purity (0-1000):&nbsp;
+        <input type="number" id="purityVal" value="${SugarCube.State.active.variables.purity}">
+        <input type="button" value="Set" onclick="SugarCube.State.active.variables.purity = parseInt(document.getElementById('purityVal').value)">
+        <input type="button" value="Refresh" onclick="document.getElementById('purityVal').value = SugarCube.State.active.variables.purity.toString()">
         `
         content.appendChild(el)
 
