@@ -39,78 +39,69 @@ const styleTemplate = `
     position:relative;
 }`
 
-const openMenu = () => {
-    modal.setAttribute('style', "display: block")
-}
+
 
 const closeMenu = () => {
     modal.setAttribute('style', "display: none")
 }
 
-(function() {
+(function () {
     'use strict';
 
     const style = document.createElement('style')
     style.textContent = styleTemplate
     document.head.appendChild(style)
 
-    // Construct and inject cheat menu
-    const passages = document.getElementById('passages')
-    if (passages) {
-        // Construct Cheat Button
-        const cheatButton = document.createElement('div')
-        cheatButton.innerHTML = "<a>Cheat Menu</a>"
-        cheatButton.addEventListener('click', openMenu);
-        passages.appendChild(cheatButton)
+    document.addEventListener('keypress', (e) => {
+        if (e.key === 'c') modal.setAttribute('style', "display: block")
+    })
 
-        // Construct the close button
-        const close = document.createElement('div')
-        close.innerHTML = `<div style="text-align:right">
+    // Construct the close button
+    const close = document.createElement('div')
+    close.innerHTML = `<div style="text-align:right">
       <a>Close</a>
     </div>`
-        close.addEventListener('click', closeMenu)
+    close.addEventListener('click', closeMenu)
 
-        // Construct cheat menu modal
-        modal = document.createElement('div')
-        modal.className = "modal"
-        modal.setAttribute("style", "display: none")
-        modal.innerHTML = modalTemplate
-        const content = modal.children[0]
-        content.prepend(close)
-        document.body.appendChild(modal)
+    // Construct cheat menu modal
+    modal = document.createElement('div')
+    modal.className = "modal"
+    modal.setAttribute("style", "display: none")
+    modal.innerHTML = modalTemplate
+    const content = modal.children[0]
+    content.prepend(close)
+    document.body.appendChild(modal)
 
-        // Insert Cheats!
-        // Currently just a big long list. Will add tabs later if needed.
-        var el
+    // Insert Cheats!
+    // Currently just a big long list. Will add tabs later if needed.
+    var el
 
-        el = document.createElement('h2')
-        el.innerHTML = "Money and Needs"
-        content.appendChild(el)
-        
-        // Money
-        el = document.createElement('span')
-        el.innerHTML = `
+    el = document.createElement('h2')
+    el.innerHTML = "Money and Needs"
+    content.appendChild(el)
+
+    // Money
+    el = document.createElement('span')
+    el.innerHTML = `
         Money (in cents):&nbsp;
         <input type="number" id="moneyVal" value="${SugarCube.State.active.variables.money}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.money = parseInt(document.getElementById('moneyVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('moneyVal').value = SugarCube.State.active.variables.money.toString()">
         `
-        content.appendChild(el)
+    content.appendChild(el)
 
-        el = document.createElement('h2')
-        el.innerHTML = "Core Characteristics"
-        content.appendChild(el)
+    el = document.createElement('h2')
+    el.innerHTML = "Core Characteristics"
+    content.appendChild(el)
 
-        // Purity
-        el = document.createElement('span')
-        el.innerHTML = `
+    // Purity
+    el = document.createElement('span')
+    el.innerHTML = `
         Purity (0-1000):&nbsp;
         <input type="number" id="purityVal" value="${SugarCube.State.active.variables.purity}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.purity = parseInt(document.getElementById('purityVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('purityVal').value = SugarCube.State.active.variables.purity.toString()">
         `
-        content.appendChild(el)
-
-    }
+    content.appendChild(el)
 
 })();
