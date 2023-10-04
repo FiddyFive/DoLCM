@@ -94,6 +94,12 @@ const closeMenu = () => {
     el.innerHTML = "Core Characteristics"
     content.appendChild(el)
 
+    // =================================================================================================================================================
+    
+    el = document.createElement('h2')
+    el.innerHTML = "Characteristics"
+    content.appendChild(el)
+
     // Purity
     el = document.createElement('span')
     el.innerHTML = `
@@ -101,6 +107,20 @@ const closeMenu = () => {
         <input type="number" id="purityVal" value="${SugarCube.State.active.variables.purity}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.purity = parseInt(document.getElementById('purityVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('purityVal').value = SugarCube.State.active.variables.purity.toString()">
+        `
+    content.appendChild(el)
+
+    el = document.createElement('h2')
+    el.innerHTML = "School"
+    content.appendChild(el)
+
+    // Delinquency
+    el = document.createElement('span')
+    el.innerHTML = `
+        Delinquency (0-1000):&nbsp;
+        <input type="number" id="delinquencyVal" value="${SugarCube.State.active.variables.delinquency}">
+        <input type="button" value="Set" onclick="SugarCube.State.active.variables.delinquency = parseInt(document.getElementById('delinquencyVal').value)">
+        <input type="button" value="Refresh" onclick="document.getElementById('delinquencyVal').value = SugarCube.State.active.variables.delinquency.toString()">
         `
     content.appendChild(el)
 
