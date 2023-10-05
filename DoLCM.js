@@ -121,6 +121,17 @@ const closeMenu = () => {
         <input type="number" id="delinquencyVal" value="${SugarCube.State.active.variables.delinquency}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.delinquency = parseInt(document.getElementById('delinquencyVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('delinquencyVal').value = SugarCube.State.active.variables.delinquency.toString()">
+        <br>
+        `
+    content.appendChild(el)
+    
+    // Detention
+    el = document.createElement('span')
+    el.innerHTML = `
+        Detention (0-1000):&nbsp;
+        <input type="number" id="detentionVal" value="${SugarCube.State.active.variables.detention}">
+        <input type="button" value="Set" onclick="SugarCube.State.active.variables.detention = parseInt(document.getElementById('detentionVal').value)">
+        <input type="button" value="Refresh" onclick="document.getElementById('detentionVal').value = SugarCube.State.active.variables.detention.toString()">
         `
     content.appendChild(el)
 
