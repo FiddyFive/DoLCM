@@ -7,13 +7,11 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
-var modal
-
 const modalTemplate = `
   <div class="modal-content">
     <h1>Backup your save before using this!</h1>
     <p>Don't come crying to me if this corrupts your save (but please do report it if you find a bug)</p>
-  </div>`
+</div>`
 
 const styleTemplate = `
 .modal {
@@ -37,102 +35,101 @@ const styleTemplate = `
     width: 80%;
     max-width: 960px;
     position:relative;
-}`
+}
 
-
+.tabs {
+    display:grid;
+    grid-template-columns: auto auto auto auto auto auto;
+}
+`
 
 const closeMenu = () => {
     modal.setAttribute('style', "display: none")
 }
 
-(function () {
-    'use strict';
+const style = document.createElement('style')
+style.textContent = styleTemplate
+document.head.appendChild(style)
 
-    const style = document.createElement('style')
-    style.textContent = styleTemplate
-    document.head.appendChild(style)
+document.addEventListener('keypress', (e) => {
+    if (e.key === 'c') modal.setAttribute('style', "display: block")
+})
 
-    document.addEventListener('keypress', (e) => {
-        if (e.key === 'c') modal.setAttribute('style', "display: block")
-    })
+// Construct the close button
+const close = document.createElement('div')
+close.innerHTML = `<div style="text-align:right">
+    <a>Close</a>
+</div>`
+close.addEventListener('click', closeMenu)
 
-    // Construct the close button
-    const close = document.createElement('div')
-    close.innerHTML = `<div style="text-align:right">
-      <a>Close</a>
-    </div>`
-    close.addEventListener('click', closeMenu)
+// Construct cheat menu modal
+const modal = document.createElement('div')
+modal.className = "modal"
+modal.setAttribute("style", "display: none")
+modal.innerHTML = modalTemplate
+const content = modal.children[0]
+content.prepend(close)
 
-    // Construct cheat menu modal
-    modal = document.createElement('div')
-    modal.className = "modal"
-    modal.setAttribute("style", "display: none")
-    modal.innerHTML = modalTemplate
-    const content = modal.children[0]
-    content.prepend(close)
-    document.body.appendChild(modal)
-
-    // Insert Cheats!
-    // Currently just a big long list. Will add tabs later if needed.
-    var el
-
-    el = document.createElement('h2')
-    el.innerHTML = "Money and Needs"
-    content.appendChild(el)
-
-    // Money
-    el = document.createElement('span')
-    el.innerHTML = `
-        Money (in cents):&nbsp;
-        <input type="number" id="moneyVal" value="${SugarCube.State.active.variables.money}">
-        <input type="button" value="Set" onclick="SugarCube.State.active.variables.money = parseInt(document.getElementById('moneyVal').value)">
-        <input type="button" value="Refresh" onclick="document.getElementById('moneyVal').value = SugarCube.State.active.variables.money.toString()">
-        `
-    content.appendChild(el)
-
-    el = document.createElement('h2')
-    el.innerHTML = "Core Characteristics"
-    content.appendChild(el)
-
-    // =================================================================================================================================================
-    
-    el = document.createElement('h2')
-    el.innerHTML = "Characteristics"
-    content.appendChild(el)
-
-    // Purity
-    el = document.createElement('span')
-    el.innerHTML = `
+// Insert Cheats!
+const characteristics = `
+    <h2>Core Characteristics</h2>
+    <span>
         Purity (0-1000):&nbsp;
         <input type="number" id="purityVal" value="${SugarCube.State.active.variables.purity}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.purity = parseInt(document.getElementById('purityVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('purityVal').value = SugarCube.State.active.variables.purity.toString()">
-        `
-    content.appendChild(el)
-
-    el = document.createElement('h2')
-    el.innerHTML = "School"
-    content.appendChild(el)
-
-    // Delinquency
-    el = document.createElement('span')
-    el.innerHTML = `
+    </span>
+    `
+    
+const needs = `
+    <h2>Money and Needs</h2>
+    <span>
+        Money (in cents):&nbsp;
+        <input type="number" id="moneyVal" value="${SugarCube.State.active.variables.money}">
+        <input type="button" value="Set" onclick="SugarCube.State.active.variables.money = parseInt(document.getElementById('moneyVal').value)">
+        <input type="button" value="Refresh" onclick="document.getElementById('moneyVal').value = SugarCube.State.active.variables.money.toString()">
+    </span>
+    `
+    
+const school = `
+    <h2>School</h2>
+    <span>
         Delinquency (0-1000):&nbsp;
         <input type="number" id="delinquencyVal" value="${SugarCube.State.active.variables.delinquency}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.delinquency = parseInt(document.getElementById('delinquencyVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('delinquencyVal').value = SugarCube.State.active.variables.delinquency.toString()">
         <br>
-        `
-    content.appendChild(el)
-    
-    // Detention
-    el = document.createElement('span')
-    el.innerHTML = `
+    </span>
+    <span>
         Detention (0-1000):&nbsp;
         <input type="number" id="detentionVal" value="${SugarCube.State.active.variables.detention}">
         <input type="button" value="Set" onclick="SugarCube.State.active.variables.detention = parseInt(document.getElementById('detentionVal').value)">
         <input type="button" value="Refresh" onclick="document.getElementById('detentionVal').value = SugarCube.State.active.variables.detention.toString()">
-        `
-    content.appendChild(el)
+    </span>
+    `
+    
+// Construct the tab bar
+const tabs = document.createElement('div')
+tabs.setAttribute("class", "tabs")
 
-})();
+const tablist = [
+    ["Characteristics", characteristics], 
+    ["Needs", needs], 
+    ["School",school]
+]
+tablist.forEach(element => {
+    const tab = document.createElement('input')
+    tab.setAttribute("value", element[0])
+    tab.addEventListener("click", () => {tabContents.innerHTML = element[1]})
+    tab.setAttribute("type", "button")
+    tabs.appendChild(tab)
+});
+content.appendChild(tabs)
+
+document.body.appendChild(modal)
+
+// Construct a container for our tab contents
+const tabContents = document.createElement('div')
+content.appendChild(tabContents)
+
+
