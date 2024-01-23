@@ -52,7 +52,7 @@ style.textContent = styleTemplate
 document.head.appendChild(style)
 
 document.addEventListener('keypress', (e) => {
-    if (e.key === 'c') modal.setAttribute('style', "display: block")
+    if (e.key === '`') modal.setAttribute('style', "display: block")
 })
 
 // Construct the close button
@@ -70,42 +70,39 @@ modal.innerHTML = modalTemplate
 const content = modal.children[0]
 content.prepend(close)
 
+function numberVar(title, id, internalVar) {
+    return `
+    <span>
+        ${title}&nbsp;
+        <input type="number" id="${id}">
+        <input type="button" value="Set" onclick="SugarCube.State.active.variables.${internalVar} = parseInt(document.getElementById('${id}').value)">
+        <input type="button" value="Refresh" onclick="document.getElementById('${id}').value = SugarCube.State.active.variables.${internalVar}.toString()">
+        <br>
+    </span>`
+}
+
 // Insert Cheats!
 const characteristics = `
     <h2>Core Characteristics</h2>
-    <span>
-        Purity (0-1000):&nbsp;
-        <input type="number" id="purityVal" value="${SugarCube.State.active.variables.purity}">
-        <input type="button" value="Set" onclick="SugarCube.State.active.variables.purity = parseInt(document.getElementById('purityVal').value)">
-        <input type="button" value="Refresh" onclick="document.getElementById('purityVal').value = SugarCube.State.active.variables.purity.toString()">
-    </span>
+    ${numberVar("Purity (0-1000):", "purityVal", "purity")}
+    ${numberVar("Beauty (0-10000):", "beautyVal", "beauty")}
+    ${numberVar("Physique (0-20000):", "physVal", "physique")}
+    ${numberVar("Willpower (0-1000):", "willVal", "willpower")}
+    ${numberVar("Awareness (0-????):", "lewdVal", "awareness")}
+    ${numberVar("Promiscuity (0-????):", "whoreVal", "promiscuity")}
+    ${numberVar("Exhibitionism (0-????):", "exhibVal", "exhibitionism")}
+    ${numberVar("Deviancy (0-????):", "deviantVal", "deviancy")}
     `
     
 const needs = `
     <h2>Money and Needs</h2>
-    <span>
-        Money (in cents):&nbsp;
-        <input type="number" id="moneyVal" value="${SugarCube.State.active.variables.money}">
-        <input type="button" value="Set" onclick="SugarCube.State.active.variables.money = parseInt(document.getElementById('moneyVal').value)">
-        <input type="button" value="Refresh" onclick="document.getElementById('moneyVal').value = SugarCube.State.active.variables.money.toString()">
-    </span>
+    ${numberVar("Money (in cents):", "moneyVal", "money")}
     `
     
 const school = `
     <h2>School</h2>
-    <span>
-        Delinquency (0-1000):&nbsp;
-        <input type="number" id="delinquencyVal" value="${SugarCube.State.active.variables.delinquency}">
-        <input type="button" value="Set" onclick="SugarCube.State.active.variables.delinquency = parseInt(document.getElementById('delinquencyVal').value)">
-        <input type="button" value="Refresh" onclick="document.getElementById('delinquencyVal').value = SugarCube.State.active.variables.delinquency.toString()">
-        <br>
-    </span>
-    <span>
-        Detention (0-1000):&nbsp;
-        <input type="number" id="detentionVal" value="${SugarCube.State.active.variables.detention}">
-        <input type="button" value="Set" onclick="SugarCube.State.active.variables.detention = parseInt(document.getElementById('detentionVal').value)">
-        <input type="button" value="Refresh" onclick="document.getElementById('detentionVal').value = SugarCube.State.active.variables.detention.toString()">
-    </span>
+    ${numberVar("Delinquency (0-1000):", "delinquencyVal", "delinquency")}
+    ${numberVar("Detention (0-1000):", "detentionVal", "detention")}
     `
     
 // Construct the tab bar
