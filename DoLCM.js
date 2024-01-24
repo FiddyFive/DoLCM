@@ -90,8 +90,8 @@ const characteristics = `
     ${numberVar("Willpower (0-1000):", "willVal", "willpower")}
     ${numberVar("Awareness (0-????):", "lewdVal", "awareness")}
     ${numberVar("Promiscuity (0-????):", "whoreVal", "promiscuity")}
-    ${numberVar("Exhibitionism (0-????):", "exhibVal", "exhibitionism")}
-    ${numberVar("Deviancy (0-????):", "deviantVal", "deviancy")}
+    ${numberVar("Exhibitionism (0-100):", "exhibVal", "exhibitionism")}
+    ${numberVar("Deviancy (0-100):", "deviantVal", "deviancy")}
     `
     
 const needs = `
@@ -99,7 +99,21 @@ const needs = `
     ${numberVar("Money (in cents):", "moneyVal", "money")}
     `
     
-const school = `
+const social = `
+    <h2>Fame</h2>
+    ${numberVar("Bestiality:", "beastFameVal", "fame.bestiality")}
+    ${numberVar("Business:", "cafeFameVal", "fame.business")}
+    ${numberVar("Combat:", "combatFameVal", "fame.scrap")}
+    ${numberVar("Exhibitionism:", "exhibFameVal", "fame.exhibitionism")}
+    ${numberVar("Kindness:", "kindFameVal", "fame.good")}
+    ${numberVar("?impreg?:", "impregFameVal", "fame.impreg")}
+    ${numberVar("Modelling:", "modelFameVal", "fame.model")}
+    ${numberVar("?pimp?:", "pimpFameVal", "fame.pimp")}
+    ${numberVar("Pregnancy:", "pregFameVal", "fame.pregnancy")}
+    ${numberVar("Prostitution:", "whoreFameVal", "fame.prostitution")}
+    ${numberVar("Rape:", "rapeFameVal", "fame.rape")}
+    ${numberVar("Sex:", "sexFameVal", "fame.sex")}
+    ${numberVar("Socialite:", "socialFameVal", "fame.social")}
     <h2>School</h2>
     ${numberVar("Delinquency (0-1000):", "delinquencyVal", "delinquency")}
     ${numberVar("Detention (0-1000):", "detentionVal", "detention")}
@@ -112,7 +126,7 @@ tabs.setAttribute("class", "tabs")
 const tablist = [
     ["Characteristics", characteristics], 
     ["Needs", needs], 
-    ["School",school]
+    ["Social",social]
 ]
 tablist.forEach(element => {
     const tab = document.createElement('input')
