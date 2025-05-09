@@ -81,6 +81,16 @@ function numberVar(title, id, internalVar) {
     </span>`
 }
 
+function enumVar(title, strvalarr) {
+    return `
+    <span>
+        ${title}&nbsp;
+        ${strvalarr.reduce((accumulator, strval) => accumulator + `<input type="button" value="${strval[0]}" onclick="SugarCube.State.variables.player.penissize = ${strval[1]}">`, "")}
+        <br>
+    </span>
+    `
+}
+
 // Insert Cheats!
 const characteristics = `
     <h2>Core Characteristics</h2>
@@ -92,13 +102,23 @@ const characteristics = `
     ${numberVar("Promiscuity (0-????):", "whoreVal", "promiscuity")}
     ${numberVar("Exhibitionism (0-100):", "exhibVal", "exhibitionism")}
     ${numberVar("Deviancy (0-100):", "deviantVal", "deviancy")}
+    <h2>Body</h2>
+    ${enumVar("Penis Size", [
+        ["Micro",-2],
+        ["Mini",-1],
+        ["Tiny",0],
+        ["Small",1],
+        ["Normal",2],
+        ["Large",3],
+        ["Enormous",4]
+    ])}
     `
-    
+
 const needs = `
     <h2>Money and Needs</h2>
     ${numberVar("Money (in cents):", "moneyVal", "money")}
     `
-    
+
 const social = `
     <h2>Fame</h2>
     ${numberVar("Bestiality:", "beastFameVal", "fame.bestiality")}
@@ -118,14 +138,14 @@ const social = `
     ${numberVar("Delinquency (0-1000):", "delinquencyVal", "delinquency")}
     ${numberVar("Detention (0-1000):", "detentionVal", "detention")}
     `
-    
+
 // Construct the tab bar
 const tabs = document.createElement('div')
 tabs.setAttribute("class", "tabs")
 
 const tablist = [
-    ["Characteristics", characteristics], 
-    ["Needs", needs], 
+    ["Characteristics", characteristics],
+    ["Needs", needs],
     ["Social",social]
 ]
 tablist.forEach(element => {
