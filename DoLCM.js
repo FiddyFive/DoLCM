@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      0.0.1
+// @version      1.0.0
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
 // @match        file:///*/*
@@ -81,11 +81,11 @@ function numberVar(title, id, internalVar) {
     </span>`
 }
 
-function enumVar(title, strvalarr) {
+function enumVar(title, internalVar, strvalarr) {
     return `
     <span>
         ${title}&nbsp;
-        ${strvalarr.reduce((accumulator, strval) => accumulator + `<input type="button" value="${strval[0]}" onclick="SugarCube.State.variables.player.penissize = ${strval[1]}">`, "")}
+        ${strvalarr.reduce((accumulator, strval) => accumulator + `<input type="button" value="${strval[0]}" onclick="SugarCube.State.variables.${internalVar} = ${strval[1]}">`, "")}
         <br>
     </span>
     `
@@ -103,7 +103,7 @@ const characteristics = `
     ${numberVar("Exhibitionism (0-100):", "exhibVal", "exhibitionism")}
     ${numberVar("Deviancy (0-100):", "deviantVal", "deviancy")}
     <h2>Body</h2>
-    ${enumVar("Penis Size", [
+    ${enumVar("Penis Size", "player.penissize", [
         ["Micro",-2],
         ["Mini",-1],
         ["Tiny",0],
@@ -111,6 +111,32 @@ const characteristics = `
         ["Normal",2],
         ["Large",3],
         ["Enormous",4]
+    ])}
+    ${enumVar("Breast Size", "player.breastsize", [
+        ["Flat", 0],
+        ["Budding", 1],
+        ["Tiny", 2],
+        ["Small", 3],
+        ["Pert", 4],
+        ["Modest", 5],
+        ["Full", 6],
+        ["Large", 7],
+        ["Ample", 8],
+        ["Massive", 9],
+        ["Huge", 10],
+        ["Gigantic", 11],
+        ["Enormous", 12]
+    ])}
+    ${enumVar("Butt Size", "player.bottomsize", [
+        ["Slender", 0],
+        ["Slim", 1],
+        ["Modest", 2],
+        ["Cushioned", 3],
+        ["Soft", 4],
+        ["Round", 5],
+        ["Plump", 6],
+        ["Large", 7],
+        ["Huge", 8]
     ])}
     `
 
