@@ -1,11 +1,15 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      1.1.0
+// @version      1.1.1
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
-// @match        file:///*/*
+// @match        file:///*/*.html
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
+
+// Terminate the script if the game is not detected.
+// Stops the cheat trying to run if you open a HTML of your taxes or some shit.
+if (!("SugarCube" in window) || SugarCube.Story.title !== "Degrees of Lewdity") return
 
 const modalTemplate = `
   <div class="modal-content">
