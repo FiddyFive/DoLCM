@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      1.0.0
+// @version      1.1.0
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
 // @match        file:///*/*
@@ -34,7 +34,9 @@ const styleTemplate = `
     border: 1px solid #888;
     width: 80%;
     max-width: 960px;
+    height: 80%;
     position:relative;
+    overflow: scroll;
 }
 
 .tabs {
@@ -138,6 +140,20 @@ const characteristics = `
         ["Large", 7],
         ["Huge", 8]
     ])}
+    <h2>Transformation Score</h2>
+    <p>Each transformation stage requires 10 transformation points.</p>
+    <div>Most transformations cap at 30, but you can go higher to go longer without having to maintain your score.</div>
+    <h3>Divine</h3>
+    <p>Warning: Angel, Fallen Angel and Demon transformations may conflict with each other.</p>
+    ${numberVar("Angel:", "angelbuild", "angelbuild")}
+    ${numberVar("Fallen Angel:", "fallenbuild", "fallenbuild")}
+    ${numberVar("Demon:", "demonbuild", "demonbuild")}
+    <h3>Animal</h3>
+    ${numberVar("Cat:", "catbuild", "catbuild")}
+    ${numberVar("Cow:", "cowbuild", "cowbuild")}
+    ${numberVar("Fox:", "foxbuild", "foxbuild")}
+    ${numberVar("Bird:", "birdbuild", "birdbuild")}
+    ${numberVar("Wolf:", "wolfbuild", "wolfbuild")}
     `
 
 const needs = `
