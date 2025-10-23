@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      1.1.1
+// @version      1.1.2
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
 // @match        file:///*/*.html
