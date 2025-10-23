@@ -7,8 +7,6 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
-await new Promise(r => setTimeout(r, 1000));
-
 // Terminate the script if the game is not detected.
 // Stops the cheat trying to run if you open an HTML of your taxes or some shit.
 if (SugarCube?.Story.title !== "Degrees of Lewdity") return
