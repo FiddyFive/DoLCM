@@ -7,9 +7,11 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
+await new Promise(r => setTimeout(r, 1000));
+
 // Terminate the script if the game is not detected.
-// Stops the cheat trying to run if you open a HTML of your taxes or some shit.
-if (!("SugarCube" in window) || SugarCube.Story.title !== "Degrees of Lewdity") return
+// Stops the cheat trying to run if you open an HTML of your taxes or some shit.
+if (SugarCube?.Story.title !== "Degrees of Lewdity") return
 
 const modalTemplate = `
   <div class="modal-content">
@@ -208,5 +210,3 @@ document.body.appendChild(modal)
 // Construct a container for our tab contents
 const tabContents = document.createElement('div')
 content.appendChild(tabContents)
-
-
