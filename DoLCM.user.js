@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      1.1.2
+// @version      1.1.3
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
 // @match        file:///*/*.html
@@ -172,10 +172,10 @@ const social = `
     ${numberVar("Combat:", "combatFameVal", "fame.scrap")}
     ${numberVar("Exhibitionism:", "exhibFameVal", "fame.exhibitionism")}
     ${numberVar("Kindness:", "kindFameVal", "fame.good")}
-    ${numberVar("?impreg?:", "impregFameVal", "fame.impreg")}
     ${numberVar("Modelling:", "modelFameVal", "fame.model")}
-    ${numberVar("?pimp?:", "pimpFameVal", "fame.pimp")}
+    ${numberVar("Pimp (unused):", "pimpFameVal", "fame.pimp")}
     ${numberVar("Pregnancy:", "pregFameVal", "fame.pregnancy")}
+    ${numberVar("Impregnation:", "impregFameVal", "fame.impreg")}
     ${numberVar("Prostitution:", "whoreFameVal", "fame.prostitution")}
     ${numberVar("Rape:", "rapeFameVal", "fame.rape")}
     ${numberVar("Sex:", "sexFameVal", "fame.sex")}
