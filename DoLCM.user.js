@@ -1,15 +1,39 @@
 // ==UserScript==
 // @name         Degrees of Lewdity Cheat Menu
-// @version      1.1.3
+// @version      1.2.0
 // @description  A cheat menu that can be injected into DoL and theoretically any DoL mod.
 // @author       Fiddy
 // @match        file:///*/*.html
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
+const DEBUG = false
+
 // Terminate the script if the game is not detected.
-// Stops the cheat trying to run if you open an HTML of your taxes or some shit.
-if (SugarCube?.Story.title !== "Degrees of Lewdity") return
+// Stops the cheat trying to run if for some reason you have a file called Degrees of Lewdity.html that is not in fact the game.
+function waitForSugarCube() {
+    return new Promise((resolve) => {
+        const start = Date.now()
+
+        function check() {
+            if (SugarCube?.Story.title === "Degrees of Lewdity") return resolve(true)
+            if (Date.now() - start > 5000) return resolve(false); // Reject after 5 seconds
+            setTimeout(check, 100)
+        }
+
+        check()
+    });
+}
+
+const found = await waitForSugarCube()
+
+if (!found) {
+    // Did not find DoL, quitting silently
+    if (DEBUG) console.log("Did not find DoL, quitting.")
+    return
+}
+
+console.log("Found DoL")
 
 const modalTemplate = `
   <div class="modal-content">
@@ -110,13 +134,13 @@ const characteristics = `
     ${numberVar("Deviancy (0-100):", "deviantVal", "deviancy")}
     <h2>Body</h2>
     ${enumVar("Penis Size", "player.penissize", [
-        ["Micro",-2],
-        ["Mini",-1],
-        ["Tiny",0],
-        ["Small",1],
-        ["Normal",2],
-        ["Large",3],
-        ["Enormous",4]
+        ["Micro",0],
+        ["Mini",1],
+        ["Tiny",2],
+        ["Small",3],
+        ["Normal",4],
+        ["Large",5],
+        ["Enormous",6]
     ])}
     ${enumVar("Breast Size", "player.breastsize", [
         ["Flat", 0],
@@ -170,7 +194,7 @@ const social = `
     ${numberVar("Bestiality:", "beastFameVal", "fame.bestiality")}
     ${numberVar("Business:", "cafeFameVal", "fame.business")}
     ${numberVar("Combat:", "combatFameVal", "fame.scrap")}
-    ${numberVar("Exhibitionism:", "exhibFameVal", "fame.exhibitionism")}
+    ${numberVar("Exhibitionism (0-2000):", "exhibFameVal", "fame.exhibitionism")}
     ${numberVar("Kindness:", "kindFameVal", "fame.good")}
     ${numberVar("Modelling:", "modelFameVal", "fame.model")}
     ${numberVar("Pimp (unused):", "pimpFameVal", "fame.pimp")}
